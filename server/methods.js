@@ -1,29 +1,27 @@
 Meteor.methods({
-	get_places: function(location, isFake){
-		if (isFake){
-			return fake_response;
-		}
-		this.unblock();
+    get_places: function(location, isFake){
+        if (isFake){
+            return fake_response;
+        }
+        this.unblock();
 
-		try {
-			var api_response = HTTP.get(GOOGLE_API_URL, {params: {
-				key: GOOGLE_API_KEY,
-				location: location,
-				rankby: 'distance',
-				sensor: 'true',
-				types: 'cafe'
-			}});
+        try {
+            var api_response = HTTP.get(GOOGLE_API_URL, {params: {
+                key: GOOGLE_API_KEY,
+                location: location,
+                rankby: 'distance',
+                sensor: 'true',
+                types: 'cafe'
+            }});
 
-			return api_response.data;
-		}
+            return api_response.data;
+        }
 
-		catch (e){
-			return false;
-		}
-
-
-	}
-})
+        catch (e){
+            return false;
+            }
+        }
+});
 
 GOOGLE_API_KEY = "AIzaSyAt4AAA7Kmj8O7w33-I0_gORjZXEvEbD3E";
 GOOGLE_API_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
@@ -115,4 +113,4 @@ fake_response =
     }
   ],
   "status": "OK"
-}
+};
