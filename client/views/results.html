@@ -1,3 +1,41 @@
 <template name="results_view">
-    <div class="resuls_view">RESULTS</div>
+    <div class='map'>CARTE</div>
+    <p>Les terrasses les plus proches sont:</p>
+    {{#each results}}
+        {{> result_item}}
+    {{/each}}
+
+    {{#if details}}
+            {{> result_details}}
+    {{/if}}
+</template>
+
+
+<template name="result_item">
+    <div class="result_item">
+        <h4>{{name}}</h4>
+        {{address}}<br>
+        {{types}}<br>
+        <a id="details_btn" class="btn btn-default">En savoir plus</a>
+    </div>
+</template>
+
+
+<template name="result_details">
+    <div class="result_details">
+        <p>{{data.name}}</p>
+        <p>{{address}}</p>
+        <a id="edit_btn" class="btn btn-default">Ajouter des infos</a>
+        <a id="close_details_btn" class="btn btn-default">Retour à la liste</a>
+    </div>
+</template>
+
+<template name="result_edit">
+    <div class="result_edit">
+        <p>{{data.name}}</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irur anim id est laborum.</p>
+    </div>
 </template>
