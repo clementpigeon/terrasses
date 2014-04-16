@@ -21,7 +21,9 @@ Template.home.events({
 
 function callGetPlacesMethod(location, isFake){
   Meteor.call('get_places', location, isFake, function(error, res){
+    var i = 0;
     res.results.forEach(function(result){
+      result.index = ++i;
       Results.insert(result);
     });
     Session.set('isReady', true);
