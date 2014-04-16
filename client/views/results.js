@@ -2,6 +2,10 @@ Template.results_view.results = function(){
   return Results.find();
 };
 
+Template.results_view.isReady = function(){
+  return Session.get('isReady');
+};
+
 Template.results_view.details = function(){
   return Session.get('details');
 };

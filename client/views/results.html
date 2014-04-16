@@ -1,20 +1,25 @@
 <template name="results_view">
-    <div class='map'>CARTE</div>
-    <p>Les terrasses les plus proches sont:</p>
+    {{#if isReady}}
+        <div class='map'>CARTE</div>
+        <p>Les terrasses les plus proches sont:</p>
 
-    {{#each results}}
-        {{> result_item}}
+        {{#each results}}
+            {{> result_item}}
+        {{else}}
+            <div class="result_item">
+                <h4>Aucun résultat</h4>
+                address<br>
+                type<br>
+                <a id="details_btn" class="btn btn-default">En savoir plus</a>
+            </div>
+        {{/each}}
+
     {{else}}
-        <div class="result_item">
-            <h4>Place</h4>
-            address<br>
-            type<br>
-            <a id="details_btn" class="btn btn-default">En savoir plus</a>
-        </div>
-    {{/each}}
+        {{> loading}}
+    {{/if}}
 
     {{#if details}}
-            {{> result_details}}
+       {{> result_details}}
     {{/if}}
 </template>
 
@@ -45,5 +50,11 @@
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irur anim id est laborum.</p>
+    </div>
+</template>
+
+<template name="loading">
+    <div class="loading">
+        {{> spinner}}
     </div>
 </template>

@@ -17,3 +17,4 @@ Router.map(function () {
 });
 
 Session.set("currentPage", '/');
+Session.set('isReady', true);
