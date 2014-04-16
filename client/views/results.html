@@ -1,8 +1,16 @@
 <template name="results_view">
     <div class='map'>CARTE</div>
     <p>Les terrasses les plus proches sont:</p>
+
     {{#each results}}
         {{> result_item}}
+    {{else}}
+        <div class="result_item">
+            <h4>Place</h4>
+            address<br>
+            type<br>
+            <a id="details_btn" class="btn btn-default">En savoir plus</a>
+        </div>
     {{/each}}
 
     {{#if details}}
