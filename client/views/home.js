@@ -8,6 +8,7 @@ Template.home.events({
       navigator.geolocation.getCurrentPosition(function(position) {
         var location = [position.coords.latitude, position.coords.longitude];
         callGetPlacesMethod(location, false);
+        Session.set('location', location);
       });
 
     } else {

@@ -6,6 +6,10 @@ Template.results_view.isReady = function(){
   return Session.get('isReady');
 };
 
+Template.results_view.rendered = function(){
+  setupGoogleMap(location);
+};
+
 Template.results_view.details = function(){
   return Session.get('details');
 };
@@ -31,4 +35,21 @@ Template.result_details.events({
     }
 });
 
-
+function setupGoogleMap(){
+  var location = Session.get('location');
+  GoogleMaps.init(
+      {
+          'sensor': true, //optional
+          // 'key': 'MY-GOOGLEMAPS-API-KEY', //optional
+          'language': 'fr' //optional
+      },
+      function(){
+          var mapOptions = {
+              zoom: 15,
+              mapTypeId: google.maps.MapTypeId.RoadMap
+          };
+          map = new google.maps.Map(document.getElementById("map"), mapOptions);
+          map.setCenter(new google.maps.LatLng( location[0], location[1] ));
+      }
+  );
+}
