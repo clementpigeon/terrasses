@@ -3,17 +3,16 @@ Template.home.events({
     Session.set('isReady', false);
     Results.remove();
 
-    if ("geolocation" in navigator) {
-
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var location = [position.coords.latitude, position.coords.longitude];
-        callGetPlacesMethod(location, false);
-        Session.set('location', location);
-      });
-
-    } else {
-      console.log('location not available');
-      callGetPlacesMethod([48.863528, 2.369465], false);
+    if (geo && geo.error){
+      console.log(geo.error.message);
+      return;
+    } else if (geo && !geo.lat){
+      alert('Vous devez autoriser la géolocalisation');
+      return;
+    } else{
+      var location = [geo.lat, geo.lng];
+      Session.set('location', location);
+      callGetPlacesMethod(Session.get('location'));
     }
     Router.go('results');
   }
@@ -28,4 +27,8 @@ function callGetPlacesMethod(location, isFake){
     });
     Session.set('isReady', true);
   });
+}
+
+Template.home.rendered = function(){
+  geo = Geolocation.getInstance();
 }

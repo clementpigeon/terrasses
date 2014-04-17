@@ -5,7 +5,8 @@
       "iron-router": {},
       "bootstrap-3": {},
       "spin": {},
-      "googlemaps": {}
+      "googlemaps": {},
+      "Geolocation": {}
     },
     "packages": {
       "iron-router": {
@@ -27,6 +28,11 @@
         "git": "https://github.com/drewjw81/meteor-googlemaps.git",
         "tag": "v0.0.2",
         "commit": "da8785c82cfd7de0111f898ef10728e7ed24e361"
+      },
+      "Geolocation": {
+        "git": "https://github.com/hculap/geolocation.git",
+        "tag": "v0.1.0",
+        "commit": "17485d2e08301febefafda5997f803d4ac971bdb"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
