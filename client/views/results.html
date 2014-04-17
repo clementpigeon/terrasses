@@ -7,12 +7,7 @@
         {{#each results}}
             {{> result_item}}
         {{else}}
-            <div class="result_item">
                 <h4>Aucun résultat</h4>
-                address<br>
-                type<br>
-                <a id="details_btn" class="btn btn-default">En savoir plus</a>
-            </div>
         {{/each}}
 
     {{else}}
@@ -26,11 +21,18 @@
 
 
 <template name="result_item">
-    <div class="result_item">
-        <h4><img src='{{googleMarkerUrl}}'> {{name}}</h4>
-        {{address}}<br>
-        {{types}}<br>
-        <a id="details_btn" class="btn btn-default">En savoir plus</a>
+    <div class="result_item row">
+        <div class='img_div col-sm-2'>
+            <img class='img-responsive' src="{{photo}}">
+        </div>
+        <div class='result_item_text col-sm-10'>
+            <h4><img src='{{googleMarkerUrl}}'> {{name}}</h4>
+            {{vicinity}}<br>
+            {{types}}<br>
+            <br>
+            <a id="details_btn" class="btn btn-default">En savoir plus</a>
+        </div>
+
     </div>
 </template>
 
