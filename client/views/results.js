@@ -18,6 +18,12 @@ Template.result_item.googleMarkerUrl = function(){
   return googleMarkerUrl(this.index);
 }
 
+Template.result_item.types = function(){
+  // var types = this.types.split(',');
+  var types = _(this.types).without('food', 'establishment');
+  return types.join(', ');
+}
+
 Template.result_item.photo = function(){
   if (this.photos){
     return googlePhotoUrl(this.photos[0].photo_reference);
