@@ -28,7 +28,3 @@ function callGetPlacesMethod(location, isFake){
     Session.set('isReady', true);
   });
 }
-
-Template.home.rendered = function(){
-  geo = Geolocation.getInstance();
-}
