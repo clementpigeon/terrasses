@@ -14,7 +14,21 @@ Meteor.methods({
                 types: 'cafe'
             }});
 
-            return api_response.data;
+            var filtered_results = [];
+            api_response.data.results.forEach(function(result){
+              console.log(result.id);
+              var matches = Terrasses.find({g_id: result.id}).fetch();
+              if (match = matches[0]){
+                filtered_results.push(result);
+              }
+            })
+
+            var response = {
+              "next_page_token": api_response.next_page_token,
+              results: filtered_results
+            }
+
+            return response;
         }
 
         catch (e){
