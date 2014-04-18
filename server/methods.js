@@ -6,12 +6,12 @@ Meteor.methods({
         this.unblock();
 
         try {
-            var api_response = HTTP.get(GOOGLE_API_URL, {params: {
+            var api_response = HTTP.get(GOOGLE_NEARBY_API_URL, {params: {
                 key: GOOGLE_API_KEY,
                 location: location,
                 rankby: 'distance',
                 sensor: 'true',
-                types: 'cafe'
+                types: 'cafe|restaurant|bar'
             }});
 
             var filtered_results = [];
@@ -34,11 +34,59 @@ Meteor.methods({
         catch (e){
             return false;
             }
-        }
+        },
+    add_coordinates_to_db: function(){
+      add_coordinates_to_db()
+    }
+
 });
 
+function add_coordinates_to_db(){
+  Terrasses.find({}).forEach(function(place){
+    console.log(place.name);
+    if (place.coords){
+      console.log('already filled');
+    }
+    else{
+
+      console.log(place.name);
+
+      var api_response = HTTP.get(GOOGLE_DETAILS_API_URL, {params: {
+          key: GOOGLE_API_KEY,
+          reference: place.g_ref,
+          sensor: 'false'
+      }});
+
+      if (api_response.data.status === "OK"){
+        var result = api_response.data.result;
+        var coords = [result.geometry.location.lat, result.geometry.location.lng];
+        var opening_hours;
+        if (result.opening_hours){
+          opening_hours = { periods: result.opening_hours.periods};
+        }
+        var photos = result.photos;
+        var types = result.types;
+        var website = result.website;
+        var google_plus_url = result.url;
+
+        Terrasses.update({_id: place._id}, {'$set': {
+          'coords': coords,
+          'opening_hours': opening_hours,
+          'photos': photos,
+          'types': types,
+          'website': website,
+          'google_plus_url' : google_plus_url
+        } });
+      } else {
+        console.error("bad response")
+      }
+    }
+  })
+}
+
 GOOGLE_API_KEY = "AIzaSyAt4AAA7Kmj8O7w33-I0_gORjZXEvEbD3E";
-GOOGLE_API_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+GOOGLE_NEARBY_API_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+GOOGLE_DETAILS_API_URL = "https://maps.googleapis.com/maps/api/place/details/json"
 
 fake_response =
 {
