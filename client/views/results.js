@@ -62,8 +62,7 @@ function setupGoogleMap(){
           var markers = [];
           Results.find().observe({
             added: function(result) {
-              var location = result.geometry.location;
-              var pos = new google.maps.LatLng( location.lat, location.lng )
+              var pos = new google.maps.LatLng( result.coords[0], result.coords[1] )
               markers.push(new google.maps.Marker({
                 position: pos,
                 map: map,
