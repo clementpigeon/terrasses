@@ -40,6 +40,15 @@ Template.result_item.events({
     }
 });
 
+Template.results_map.events({
+    'click #refresh_results': function(e) {
+        var center = map.getCenter();
+        center = [center.k, center.A];
+        Session.set('requestedPosition', center);
+        callGetPlacesMethod();
+    }
+});
+
 function callGetPlacesMethod (){
   position = Session.get('requestedPosition');
   Results.remove({});

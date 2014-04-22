@@ -1,5 +1,6 @@
 <template name="results_view">
-    <div id='map'></div>
+    {{> results_map}}
+
     {{#if isReady}}
 
         <p>Les terrasses les plus proches sont:</p>
@@ -19,6 +20,10 @@
     {{/if}}
 </template>
 
+<template name='results_map'>
+    <div id='map'></div>
+    <a id="refresh_results" class="btn btn-default">Rafraichir les résultats</a>
+</template>
 
 <template name="result_item">
     <div class="result_item row">
