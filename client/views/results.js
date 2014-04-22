@@ -7,7 +7,8 @@ Template.results_view.isReady = function(){
 };
 
 Template.results_view.rendered = function(){
-  setupGoogleMap(location);
+  callGetPlacesMethod();
+  setupGoogleMap(Session.get('requestLocation'));
 };
 
 Template.results_view.details = function(){
@@ -49,7 +50,7 @@ Template.result_details.events({
     }
 });
 
-function setupGoogleMap(){
+function setupGoogleMap(location){
   GoogleMaps.init(
       {
           'sensor': true, //optional
@@ -62,7 +63,7 @@ function setupGoogleMap(){
               mapTypeId: google.maps.MapTypeId.RoadMap
           };
           map = new google.maps.Map(document.getElementById("map"), mapOptions);
-          var location = Session.get('location');
+
           map.setCenter(new google.maps.LatLng( location[0], location[1] ));
 
           var markers = [];
