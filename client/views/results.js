@@ -8,7 +8,7 @@ Template.results_view.isReady = function(){
 
 Template.results_view.rendered = function(){
   callGetPlacesMethod();
-  setupGoogleMap(Session.get('requestLocation'));
+  setupGoogleMap(Session.get('requestedPosition'));
 };
 
 Template.results_view.details = function(){
@@ -41,7 +41,7 @@ Template.result_item.events({
 });
 
 function callGetPlacesMethod (){
-  position = Session.get('requestLocation');
+  position = Session.get('requestedPosition');
   Results.remove({});
   Meteor.call('get_places', position, false, function(error, res){
     var i = 0;
@@ -53,7 +53,7 @@ function callGetPlacesMethod (){
   });
 }
 
-function setupGoogleMap(location){
+function setupGoogleMap(position){
   GoogleMaps.init(
       {
           'sensor': true, //optional
@@ -67,7 +67,7 @@ function setupGoogleMap(location){
           };
           map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-          map.setCenter(new google.maps.LatLng( location[0], location[1] ));
+          map.setCenter(new google.maps.LatLng( position[0], position[1] ));
 
           var markers = [];
           Results.find().observe({

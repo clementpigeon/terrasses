@@ -2,11 +2,11 @@ Template.home.events({
   'click #search_now_nearby': function () {
     Session.set('isReady', false);
 
-    getLocation(function(err, res){
+    getPosition(function(err, res){
       if (err){
-        console.log(location.message);
+        console.log(err.message);
       } else {
-        Session.set('requestLocation', res);
+        Session.set('requestedPosition', res);
         Router.go('results');
       }
     })
