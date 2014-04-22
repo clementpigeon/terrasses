@@ -63,7 +63,11 @@ function setupGoogleMap(position){
                 icon: googleMarkerUrl(result.index)
               }));
             },
-            removed: function(post) {
+            removed: function(result) {
+              // for now, delete all markers when one result is removed from cursor
+              for (var i = 0; i < markers.length; i++ ) {
+                markers[i].setMap(null);
+              }
               markers.length = 0;
             }
           })
