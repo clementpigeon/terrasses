@@ -1,0 +1,26 @@
+<template name="result_details">
+    <div class="result_details">
+        <p>{{data.name}}</p>
+        <p>{{address}}</p>
+        <p>
+        {{#if website}}
+            <a href="{{website}}">Website</a>
+        {{/if}} /
+        {{#if google_plus_url}}
+            <a href="{{google_plus_url}}">Google+</a>
+        {{/if}}
+        </p>
+        <a id="edit_btn" class="btn btn-default">Ajouter des infos</a>
+        <a id="close_details_btn" class="btn btn-default">Retour à la liste</a>
+    </div>
+</template>
+
+<template name="result_edit">
+    <div class="result_edit">
+        <p>{{data.name}}</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irur anim id est laborum.</p>
+    </div>
+</template>

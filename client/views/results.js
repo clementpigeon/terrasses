@@ -33,10 +33,6 @@ Template.result_item.photo = function(){
   }
 }
 
-Template.result_details.data = function(){
-  return Session.get('details');
-};
-
 Template.result_item.events({
     'click #details_btn': function(e) {
         // "this" is the template data
@@ -44,11 +40,18 @@ Template.result_item.events({
     }
 });
 
-Template.result_details.events({
-    'click #close_details_btn': function(e) {
-        Session.set('details', null);
-    }
-});
+function callGetPlacesMethod (){
+  position = Session.get('requestLocation');
+  Results.remove({});
+  Meteor.call('get_places', position, false, function(error, res){
+    var i = 0;
+    res.forEach(function(result){
+      result.index = ++i;
+      Results.insert(result);
+    });
+    Session.set('isReady', true);
+  });
+}
 
 function setupGoogleMap(location){
   GoogleMaps.init(
